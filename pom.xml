@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.0.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.longwanli</groupId>
+    <artifactId>springcloudalibaba</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>springcloudalibaba</name>
+    <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <!--使用java版本声明-->
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+
+        <!--lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!--spring test-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!--引入spring cloud、spring cloud alibaba-->
+    <!--项目依赖管理，可被继承，介绍：https://blog.csdn.net/qq_36911595/article/details/109740718
+    在父项目中配置dependencyManagement，表对所依赖jar包进行声明依赖，继承该父项目的子项目不会直接引入dependencyManagement管理的jar包，
+    因此子项目需要显式的声明需要用的依赖，但不指定version、type、scope，而是读取父项目中的version、type、scope。
+    而不包含在dependencyManagement中的dependencies中的依赖，即使在子项目中不写该依赖项，仍然会从父项目中继承该依赖项-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Hoxton.SR3</version>
+                <!--type、scope不可少，不然下载不成功！！！-->
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>2.2.1.RELEASE</version>
+                <!--type、scope不可少-->
+                <type>pom</type>
+                <!--import表示为当前项目依赖为多继承关系，常用于项目中自定义父工程，需要注意的是只能用在dependencyManagement里面，且仅用于type=pom的dependency。-->
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
